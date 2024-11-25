@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ Infobox</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- Toggle Button -->
+  <div id="toggle-faq" onclick="toggleInfobox()">❔</div> <!-- Added toggle button -->
+
+  <!-- Infobox -->
+  <div class="faq-infobox hidden" id="faq-infobox"> <!-- Added 'hidden' class initially -->
+    <div class="faq-header">
+      <span>Ask Us Anything</span>
+      <button class="close-btn" onclick="toggleInfobox()">✖</button> <!-- Added close button -->
+    </div>
+    <div class="faq-body" id="faq-body">
+      <p>Welcome! Type your question below or select a suggestion:</p>
+    </div>
+    <div class="faq-input">
+      <input type="text" id="faq-query" placeholder="Type your question here..." />
+      <button onclick="submitQuestion()">Ask</button>
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
