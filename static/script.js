@@ -49,7 +49,11 @@ async function submitQuestion() {
         query = query.slice(0, -1);
     }
 
-    faqBody.innerHTML += `<div class="faq-answer"><strong>You:</strong> ${query}</div>`;
+    // **Clear previous responses before adding the new one**
+    faqBody.innerHTML = `<p>Welcome! Type your question below or select a suggestion:</p>`;
+    loadSuggestions(); // Reload suggestions
+
+    faqBody.innerHTML += `<div class="faq-answer"><strong>You:</strong> ${query}</div>`; // User's query
 
     try {
         const response = await fetch(`${baseURL}/search`, {
@@ -77,7 +81,7 @@ async function submitQuestion() {
         faqBody.innerHTML += `<div class="faq-answer"><strong>Bot:</strong> Sorry, something went wrong.</div>`;
     }
 
-    document.getElementById("faq-query").value = "";
+    document.getElementById("faq-query").value = ""; // Clear the input field
 }
 
 // Enable clicking on suggestions to autofill input
@@ -89,3 +93,11 @@ document.addEventListener("click", function (e) {
 
 // Load suggestions when the page loads
 document.addEventListener("DOMContentLoaded", loadSuggestions);
+
+// **Add event listener for "Enter" key to submit the question**
+document.getElementById("faq-query").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Prevent the default action (form submission)
+        submitQuestion(); // Call submitQuestion() when "Enter" is pressed
+    }
+});

@@ -111,3 +111,12 @@ body {
     font-size: 24px;
     cursor: pointer;
 }
+
+/* Add spacing between the question and the answer */
+.faq-answer {
+    margin-top: 15px; /* Adds space between the question and answer */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
