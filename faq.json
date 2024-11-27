@@ -182,5 +182,9 @@
     {
         "question": "Who is the founder of the company?",
         "answer": "The original founders of the company are the two brothers: Sushant Jha and Prashant Jha."
+    },
+    {
+        "question": "Contact Info?",
+        "answer": "For any queries, Email at:  info@padhegaindia.in"
     }
 ]
