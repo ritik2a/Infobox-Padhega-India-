@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 import json
+import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Load FAQ data
 try:
@@ -35,4 +38,4 @@ def get_suggestions():
     return jsonify(suggestions)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

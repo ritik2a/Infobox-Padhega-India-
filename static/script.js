@@ -7,9 +7,10 @@ function toggleInfobox() {
 // Load suggestions on page load
 async function loadSuggestions() {
     const faqBody = document.getElementById("faq-body");
+    const baseURL = window.location.origin; // Get the current deployed URL
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/suggestions");
+        const response = await fetch(`${baseURL}/suggestions`);
         if (response.ok) {
             const suggestions = await response.json();
             faqBody.innerHTML += `<p><strong>Ask questions like:</strong></p>`;
@@ -24,7 +25,7 @@ async function loadSuggestions() {
     }
 }
 
-// Submit question to the server
+// **Modified submitQuestion function**
 async function submitQuestion() {
     let query = document.getElementById("faq-query").value.trim();
 
@@ -34,10 +35,13 @@ async function submitQuestion() {
     }
 
     const faqBody = document.getElementById("faq-body");
+    const baseURL = window.location.origin; // Get the current deployed URL
 
+    // **Check for "clear" command**
     if (query.toLowerCase() === "clear") {
-        faqBody.innerHTML = "<p><strong>Bot:</strong> Hi! How can I help you today?</p>";
-        document.getElementById("faq-query").value = "";
+        faqBody.innerHTML = `<p>Welcome! Type your question below or select a suggestion:</p>`;
+        loadSuggestions(); // Reload suggestions
+        document.getElementById("faq-query").value = ""; // Clear the input field
         return;
     }
 
@@ -48,7 +52,7 @@ async function submitQuestion() {
     faqBody.innerHTML += `<div class="faq-answer"><strong>You:</strong> ${query}</div>`;
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/search", {
+        const response = await fetch(`${baseURL}/search`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
