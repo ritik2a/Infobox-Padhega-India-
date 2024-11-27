@@ -13,13 +13,10 @@ async function loadSuggestions() {
         const response = await fetch(`${baseURL}/suggestions`);
         if (response.ok) {
             const suggestions = await response.json();
-            // Ensure suggestions are added only once when the page loads or query is cleared
-            if (!faqBody.querySelector('.faq-suggestion')) {
-                faqBody.innerHTML += `<p><strong>Ask questions like:</strong></p>`;
-                suggestions.forEach((s) => {
-                    faqBody.innerHTML += `<div class="faq-suggestion">${s.question}</div>`;
-                });
-            }
+            faqBody.innerHTML += `<p><strong>Ask questions like:</strong></p>`;
+            suggestions.forEach((s) => {
+                faqBody.innerHTML += `<div class="faq-suggestion">${s.question}</div>`;
+            });
         } else {
             console.error("Failed to load suggestions.");
         }
@@ -49,12 +46,14 @@ async function submitQuestion() {
     }
 
     if (query.endsWith("?")) {
-        query = query.slice(0, -1); // Remove trailing question mark
+        query = query.slice(0, -1);
     }
 
-    // **Clear previous responses before adding the new one, but keep suggestions**
-    faqBody.innerHTML = faqBody.innerHTML.split('<p><strong>Ask questions like:</strong></p>')[0]; // Remove previous responses
-    faqBody.innerHTML += `<div class="faq-answer"><strong>You:</strong> ${query}</div>`;  // Add the new query
+    // **Clear previous responses before adding the new one**
+    faqBody.innerHTML = `<p>Welcome! Type your question below or select a suggestion:</p>`;
+    loadSuggestions(); // Reload suggestions
+
+    faqBody.innerHTML += `<div class="faq-answer"><strong>You:</strong> ${query}</div>`; // User's query
 
     try {
         const response = await fetch(`${baseURL}/search`, {
