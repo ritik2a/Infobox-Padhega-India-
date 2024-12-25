@@ -68,17 +68,17 @@ async function submitQuestion() {
             const data = await response.json();
             if (data.length > 0) {
                 data.forEach((faq) => {
-                    faqBody.innerHTML += `<div class="faq-answer"><strong>Bot:</strong> ${faq.answer}</div>`;
+                    faqBody.innerHTML += `<div class="faq-answer"><strong>PI Guide:</strong> ${faq.answer}</div>`;
                 });
             } else {
-                faqBody.innerHTML += `<div class="faq-answer"><strong>Bot:</strong> Sorry, no matching queries found.</div>`;
+                faqBody.innerHTML += `<div class="faq-answer"><strong>PI Guide:</strong> Sorry, no matching queries found.</div>`;
             }
         } else {
-            faqBody.innerHTML += `<div class="faq-answer"><strong>Bot:</strong> Error: Unable to process the request.</div>`;
+            faqBody.innerHTML += `<div class="faq-answer"><strong>PI Guide:</strong> Error: Unable to process the request.</div>`;
         }
     } catch (error) {
         console.error("Error:", error);
-        faqBody.innerHTML += `<div class="faq-answer"><strong>Bot:</strong> Sorry, something went wrong.</div>`;
+        faqBody.innerHTML += `<div class="faq-answer"><strong>PI Guide:</strong> Sorry, something went wrong.</div>`;
     }
 
     document.getElementById("faq-query").value = ""; // Clear the input field
